@@ -1,12 +1,13 @@
 // Dependencies
 // =============================================================
-var express = require("express");
-var path = require("path");
+let express = require("express");
+let path = require("path");
+let fs = require("fs");
 
 // Sets up the Express App
 // =============================================================
-var app = express();
-var PORT = process.env.PORT || 3000;
+let app = express();
+let PORT = process.env.PORT || 3000;
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
@@ -27,15 +28,24 @@ app.get("/tables", function(req, res) {
 });
 
 app.get("/reservations", function(req, res) {
-//   return res.json(characters);
+    let rawData = fs.readFileSync("db.json");
+    // console.log(rawData);
+    res.send(JSON.parse(rawData));
 });
 
 app.post("/reservations", function(req, res) {
-    //   return res.json(characters);
+    const newReservations = req.body
+    let rawData = fs.readFileSync("db.json");
+    let jsonData = JSON.parse(rawData);
+    jsonData.push(newReservations)
+    fs.writeFileSync('db.json', JSON.stringify(jsonData))
+    // console.log(req.body)
+    res.json(jsonData)
 });
 
 app.delete('/reservations',function(req, res) {
-    //   return res.json(characters);
+    fs.writeFileSync('db.json', JSON.stringify([]))
+    res.send('Deleted')
 });
 
 

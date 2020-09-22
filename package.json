@@ -19,5 +19,8 @@
   "homepage": "https://github.com/campbelllm/hotRestaurant#readme",
   "devDependencies": {
     "express": "^4.17.1"
+  },
+  "nodemonConfig": {
+    "ignore": ["*.json"]
   }
 }
