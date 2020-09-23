@@ -100,9 +100,10 @@ app.post("/api/tables", function(req, res) {
   } 
 });
 
-app.delete('/api/tables',function(req, res) {
-    fs.writeFileSync('db.json', JSON.stringify([]))
-    res.send('Deleted')
+app.post('/api/clear',function(req, res) {
+    fs.writeFileSync('model/waitlist.json', JSON.stringify([]));
+    fs.writeFileSync("model/reservations.json", JSON.stringify([]));
+    res.send('All Clear');
 });
 
 // ************* API ROUTES END ********************************
