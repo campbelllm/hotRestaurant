@@ -25,39 +25,38 @@
                 <i class="fas fa-pepper-hot"></i>
             </a>
         </div>
+        <!-- current reservations -->
         <div class="card mb=5">
             <div class="card-header">
                 <h4><strong>Current Reservations
                     </strong></h4>
             </div>
             <div class="card-body">
-                <blockquote class="blockquote mb-0">
-                    <p></p>
-                </blockquote>
-            </div>
+                <ul id="tableList" class="list-group"></ul>
+              </div>
         </div>
+        <!-- waiting list -->
         <div class="card mt-5">
             <div class="card-header">
                 <h4><strong>Waiting List
                     </strong></h4>
             </div>
             <div class="card-body">
-                <blockquote class="blockquote mb-0">
-                    <p></p>
-                </blockquote>
+                <ul id="waitList" class="list-group"></ul>
+              </div>
             </div>
         </div>
     </div>
     <footer>
         <div class="container">
             <p>Controller</p>
-            <a class="text-info" href="#">Clear Table <strong>|</strong></a>
+            <a class="text-info" href="#" id="clear">Clear Table <strong>|</strong></a>
             <a class="text-info" href="/api/tables">API Tables <strong>|</strong> </a>
             <a class="text-info" href="/api/waitlist">API WaitList</a>
         </div>
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="./assets/js/index.js"></script>
+    <script src="./assets/js/tables.js"></script>
 </body>
 
 </html>
