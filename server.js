@@ -40,28 +40,24 @@ app.get("/reserve", function(req, res) {
 
 
 // ************* API ROUTES START *******************************
+// GET /api/tables
 app.get("/api/tables", function(req, res) {
     let rawData = fs.readFileSync("model/reservations.json");    
     res.send(JSON.parse(rawData));
 });
 
-
-app.get("/api/waitlist", function(req, res) {
-    // const newReservations = req.body
+// GET /api/waitlist
+app.get("/api/waitlist", function(req, res) {    
     let rawData = fs.readFileSync("model/waitlist.json");
     let jsonData = JSON.parse(rawData);
     res.json(jsonData);
-    // jsonData.push(newReservations)
-    // fs.writeFileSync('db.json', JSON.stringify(jsonData))    
-    // res.json(jsonData)
 });
 
+// POST /api/tables
 app.post("/api/tables", function(req, res) {
   // Data received from the form submit
   let requestData = req.body;
-  
-  // requestData = JSON.parse(requestData);
- 
+     
   //Get the data from reservations.json
   let rawData = fs.readFileSync("model/reservations.json");  
   let jsonData = JSON.parse(rawData);
@@ -80,11 +76,10 @@ app.post("/api/tables", function(req, res) {
     
     //Now send 'true' back to user note to the user :)
     return res.send(true);
-    // return res.sendFile(path.join(__dirname,"public", "thankyou.html"));
+    
   }
   else{
     // since our reservation list is full hence we will add the customer to the waitlist.json
-
     rawData = fs.readFileSync("model/waitlist.json");  
     jsonData = JSON.parse(rawData);
 
@@ -93,35 +88,48 @@ app.post("/api/tables", function(req, res) {
 
     fs.writeFileSync("model/waitlist.json", JSON.stringify(jsonData));
     
-    //Now send a thak you note to the user :)
-    // return res.sendFile(path.join(__dirname,"public", "sorry.html"));
+    //Now send 'false' back toto the user :)    
     return res.send(false);
 
   } 
 });
 
+// POST /api/clear   THIS is to clear all the data from all the tables i.e reservations.json and waitlist.json
 app.post('/api/clear',function(req, res) {
     fs.writeFileSync('model/waitlist.json', JSON.stringify([]));
     fs.writeFileSync("model/reservations.json", JSON.stringify([]));
     res.send('All Clear');
 });
 
+
+// REMOVES 1st customer from tables and add the waitlisted customer to the table
+// Returns the waitlisted customer being added to tables.
+app.get('/api/serveone',function(req, res) {
+
+  let rawReservationData = fs.readFileSync("model/reservations.json");  
+  let jsonReservationData = JSON.parse(rawReservationData);
+
+  let rawWaitData = fs.readFileSync("model/waitlist.json");  
+  let jsonWaitData = JSON.parse(rawWaitData);
+  
+  jsonReservationData.shift();
+  let waitingCustomer={};
+  if(jsonWaitData.length !== 0){
+    waitingCustomer = jsonWaitData.shift();
+    waitingCustomer.id= jsonReservationData.length+1;
+    jsonReservationData.push(waitingCustomer);
+  }
+  
+
+  fs.writeFileSync('model/waitlist.json', JSON.stringify(jsonWaitData));
+  fs.writeFileSync("model/reservations.json", JSON.stringify(jsonReservationData));
+  res.json(waitingCustomer);
+});
+
 // ************* API ROUTES END ********************************
 
 
-// function getNextAvailableId() {
-//   let jData = this.jsonData().sort((a, b) => { a.id - b.id });
-//   let availableId = 1;
-//   for (let avId = 0; avId < jData.length; avId++) {
-//       if (parseInt(jData[avId].id) === avId + 1) {
-//           availableId++;
-//       }
-//       if (parseInt(jData[avId].id) !== avId) {
-//           break;
-//       }
-//   }
-//   return availableId;
-// }
+
 
 // Starts the server to begin listening
 // =============================================================

@@ -56,10 +56,10 @@
           listItem.append(
             $("<h2>").text("Table #" + (i + 1)),
             $("<hr>"),
-            $("<h2>").text("ID: " + waitData[i].id),
-            $("<h2>").text("Name: " + waitData[i].name),
-            $("<h2>").text("Email: " + waitData[i].email),
-            $("<h2>").text("Phone: " + waitData[i].phome)
+            $("<h4>").text("ID: " + waitData[i].id),
+            $("<h4>").text("Name: " + waitData[i].name),
+            $("<h4>").text("Email: " + waitData[i].email),
+            $("<h4>").text("Phone: " + waitData[i].phome)
           );
 
           waitList.append(listItem);
@@ -78,7 +78,7 @@
     });
   }
 
-  $("#clear").on("click", clearTable);
+  $("#clear").on("click", clearTable);  
 
 
   // Run Queries!
