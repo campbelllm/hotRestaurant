@@ -2,6 +2,15 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #3d3d44;
+  background-color:#d3f7fd
+}
+
+.display-4{
+  font-family: 'Lobster Two', cursive;
+  color:#e44d26;  
+}
+
+.jumbotron{
+  background:linear-gradient(#ffe791,#e44d26)
 }
 
