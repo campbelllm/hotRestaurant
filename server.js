@@ -18,24 +18,36 @@ app.use(express.static(path.join(__dirname, "public")));
 // Routes
 // =============================================================
 
-// Basic route that sends the user first to the AJAX Page
+// *************  HTML Routes START ****************************
+
+// Send index.html to the user
 app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile(path.join(__dirname, "public","index.html"));
 });
 
+// Send tables.html to the user
 app.get("/tables", function(req, res) {
-//   res.sendFile(path.join(__dirname, "add.html"));
+  res.sendFile(path.join(__dirname, "public","tables.html"));
 });
 
-app.get("/reservations", function(req, res) {
-    let rawData = fs.readFileSync("db.json");
-    // console.log(rawData);
+// Send reserve.html to the user
+app.get("/reserve", function(req, res) {
+  res.sendFile(path.join(__dirname,"public", "reserve.html"));
+});
+
+// ************* HTML Routes END *******************************
+
+
+// ************* API ROUTES START *******************************
+app.get("/api/tables", function(req, res) {
+    let rawData = fs.readFileSync("model/reservations.json");    
     res.send(JSON.parse(rawData));
 });
 
-app.post("/reservations", function(req, res) {
+
+app.post("/api/waitlist", function(req, res) {
     const newReservations = req.body
-    let rawData = fs.readFileSync("db.json");
+    let rawData = fs.readFileSync("mode/waitlist.json");
     let jsonData = JSON.parse(rawData);
     jsonData.push(newReservations)
     fs.writeFileSync('db.json', JSON.stringify(jsonData))
@@ -48,7 +60,7 @@ app.delete('/reservations',function(req, res) {
     res.send('Deleted')
 });
 
-
+// ************* API ROUTES END ********************************
 
 
 // Starts the server to begin listening
