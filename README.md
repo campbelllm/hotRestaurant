@@ -6,7 +6,7 @@
  [![GitHub forks](https://img.shields.io/github/forks/campbelllm/hotRestaurant)](https://github.com/campbelllm/hotRestaurant/network)
  [![GitHub stars](https://img.shields.io/github/stars/campbelllm/hotRestaurant)](https://github.com/campbelllm/hotRestaurant/stargazers)
 
-* Live Demo: <https://hot-restaurant-fsf.herokuapp.com/>
+* Live Demo: <https://abhi-hotrestaurant.herokuapp.com/>
 
 ![Hot Restaurant Image](Images/HotRestaurant.png)
 
